@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="314315fd-152f-4756-b7b0-3682d29dfcc1" name="Default Changelist" comment="" />
+    <list default="true" id="314315fd-152f-4756-b7b0-3682d29dfcc1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +19,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="JupyterTrust" id="10f0b9a6-1f26-4a0b-85ae-abe4f5f2fe48" />
   <component name="ProjectId" id="28ALnGiMVmSgdGsqBKcRoYQrcbl" />
   <component name="ProjectViewState">
@@ -23,6 +31,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
@@ -60,7 +69,15 @@
       <workItem from="1650654617146" duration="2358000" />
       <workItem from="1650695359748" duration="4341000" />
       <workItem from="1650704887303" duration="18902000" />
-      <workItem from="1650816552676" duration="11001000" />
+      <workItem from="1650816552676" duration="11327000" />
+      <workItem from="1650829535077" duration="13000" />
+      <workItem from="1650829549812" duration="737000" />
+      <workItem from="1650834009477" duration="2613000" />
+      <workItem from="1650907630748" duration="1231000" />
+      <workItem from="1651176534565" duration="3697000" />
+      <workItem from="1651474726629" duration="66000" />
+      <workItem from="1651687256309" duration="5289000" />
+      <workItem from="1651751276429" duration="5010000" />
     </task>
     <servers />
   </component>
@@ -71,26 +88,34 @@
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="734" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1650745767715">
+    <state x="414" y="175" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1650829495294">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="734" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1650745767715" />
-    <state width="1877" height="211" key="GridCell.Tab.0.bottom" timestamp="1650828787774">
+    <state x="414" y="175" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1650829495294" />
+    <state x="734" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1650829265245">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1650828787774" />
-    <state width="1877" height="211" key="GridCell.Tab.0.center" timestamp="1650828787774">
+    <state x="734" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1650829265245" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1650829546935">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1650828787774" />
-    <state width="1877" height="211" key="GridCell.Tab.0.left" timestamp="1650828787774">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1650829546935" />
+    <state width="1877" height="287" key="GridCell.Tab.0.bottom" timestamp="1651756333893">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1650828787774" />
-    <state width="1877" height="211" key="GridCell.Tab.0.right" timestamp="1650828787774">
+    <state width="1877" height="287" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1651756333893" />
+    <state width="1877" height="287" key="GridCell.Tab.0.center" timestamp="1651756333893">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1650828787774" />
+    <state width="1877" height="287" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1651756333893" />
+    <state width="1877" height="287" key="GridCell.Tab.0.left" timestamp="1651756333893">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="287" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1651756333893" />
+    <state width="1877" height="287" key="GridCell.Tab.0.right" timestamp="1651756333893">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="287" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1651756333893" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1650700414299">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -117,6 +142,6 @@
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1650707622454" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/pythonProject$main.coverage" NAME="main Coverage Results" MODIFIED="1650828231801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pythonProject$main.coverage" NAME="main Coverage Results" MODIFIED="1651756333886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
