@@ -3,18 +3,14 @@ import tweepy
 import asyncio
 import mysql.connector
 from decouple import config
-from telebot.types import ReplyKeyboardMarkup, KeyboardButton, \
-    KeyboardButtonPollType
-
+from telebot.types import ReplyKeyboardMarkup
 
 class TelegramBot:
     def __init__(self):
         self.TELEGRAM_API_KEY = config('TELEGRAM_API_KEY')
         self.twitterRequester = TwitterRequester()
-        self.accountWrapper = AccountWrapper()
         self.database = Database()
         self.chatID = None
-
         self.bot = telebot.TeleBot(self.TELEGRAM_API_KEY)
         self._init_handlers()
         self.bot.polling()
@@ -23,11 +19,8 @@ class TelegramBot:
         return arg.split()[1:]
 
     def initButtons(self):
-        poll_markup = ReplyKeyboardMarkup(one_time_keyboard=True)
-        poll_markup.add(KeyboardButton('send me a poll',
-                                       request_poll=KeyboardButtonPollType(type='quiz')))
-        # from my experience, only quiz type and regular type polls can be send.
-        self.bot.send_message(self.chatID, 'something', reply_markup=poll_markup)
+        keyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False).add('/show', '/help')
+        self.bot.send_message(self.chatID, 'something', reply_markup=keyboard)
 
     def createAccount(self, givenData):
         user = givenData[0][0]
@@ -37,7 +30,7 @@ class TelegramBot:
         url = 'https://twitter.com/'
         while True:
             print('start')
-            await asyncio.sleep(40)
+            await asyncio.sleep(10)
             all_accounts = self.database.getAllUsers()
             print(all_accounts)
             for id, name, username, twitter_id  in all_accounts:
@@ -66,20 +59,25 @@ class TelegramBot:
             self.chatID = message.chat.id if (self.chatID == None) else self.chatID
             result = 'Commands: \n' \
                      '/add <name ID>\n' \
-                     '/show'
+                     '/delete <name ID>\n' \
+                     '/show\n'
             self.bot.reply_to(message, result)
 
         @self.bot.message_handler(commands=['show'])
         def showAccounts(message):
             self.chatID = message.chat.id if (self.chatID == None) else self.chatID
-            text = self.accountWrapper.showAccounts()
+            text = '\n'.join(list(map(lambda x: x[2], self.database.getAllUsers())))
+            text = 'Accounts you are following:\n' + text
             self.bot.reply_to(message, text)
 
         @self.bot.message_handler(commands=['delete'])
         def showAccounts(message):
             self.chatID = message.chat.id if (self.chatID == None) else self.chatID
             username = self._extract_arg(message.text)
-            self.accountWrapper.delete_account(username)
+            if username == []:
+                self.bot.reply_to(message, 'Parameter is needed')
+                return
+            self.database.deleteUser(username)
             self.bot.reply_to(message, username + ' successfully deleted.')
 
 
@@ -87,6 +85,9 @@ class TelegramBot:
         def addAccounnt(message):
             self.chatID = message.chat.id if (self.chatID == None) else self.chatID
             name = self._extract_arg(message.text)
+            if name == []:
+                self.bot.reply_to(message, 'Parameter is needed')
+                return
             retrievedUser = self.twitterRequester.getUser(name)
             if 'errors' in retrievedUser:
                 self.bot.reply_to(message, 'Account with given username probably not exist')
@@ -99,9 +100,7 @@ class TelegramBot:
                 followings = self.twitterRequester.getFollowings(account.id)
                 self.database.add_following(followings, id)
                 account._setFollowings(followings)
-                self.accountWrapper.add_account(account)
                 self.bot.reply_to(message, 'Account added to tracking')
-
 
 """
 Account class for storing users who have to be tracked
@@ -118,30 +117,6 @@ class Account:
         for following in followings:
             if following not in self.following_usernames:
                 self.following_usernames.append(following)
-
-"""
-Account wrapper class for storing all accounts. Accounts are stored in dictionary with its ID as key and Account class as value. 
-"""
-class AccountWrapper:
-    def __init__(self):
-        self.accounts = {}
-
-    def add_account(self, account):
-        if account.username not in self.accounts:
-            self.accounts[account.username] = account
-
-    def delete_account(self, username):
-        self.accounts.pop(username)
-
-    def showAccounts(self):
-        res = ''
-        for _, value in self.accounts.items():
-            text = "{:<8} : {:<8}"
-            text = text.format(value.username, value.link)
-            res += text + '\n'
-        res = 'Empty' if res == '' else res
-        return res
-
 
 """
 TwitterRequester class for sending requests
@@ -180,6 +155,7 @@ class Database:
     SQL_GET_ALL_USERS = "SELECT * FROM users"
     SQL_GET_SPECIFIC_FOLLOWINGS = "SELECT * FROM followings WHERE user_id = %s"
     SQL_CHECK_FOLLOWING = "SELECT * FROM followings WHERE username = %s"
+    SQL_DELETE_USER = "DELETE FROM users WHERE username = %s"
     def __init__(self):
         self.db = mysql.connector.connect(host = config('DB_HOST'), user = config('DB_USERNAME'), password = config('DB_PASSWORD'), database = config('DB_NAME'))
         self.cursor = self.db.cursor(buffered=True)
@@ -190,6 +166,10 @@ class Database:
         last_id = self.cursor.lastrowid
         self.db.commit()
         return last_id
+
+    def deleteUser(self, username):
+        self.cursor.execute(self.SQL_DELETE_USER, (username,))
+        self.db.commit()
 
     def deleteFollowings(self, user_id):
         self.cursor.execute(self.SQL_DELETE_FOLLOWINGS, (user_id,))
@@ -212,11 +192,12 @@ class Database:
         return result
 
     def checkFollowingIfExists(self, username):
-        self.cursor.execute(self.SQL_CHECK_ACCOUNT, (username,))
+        self.cursor.execute(self.SQL_CHECK_FOLLOWING, (username,))
         result = self.cursor.fetchall()
         return result != []
 
     def checkAccountIfExists(self, account):
-        self.cursor.execute(self.SQL_CHECK_FOLLOWING, (account.username,))
+        self.cursor.execute(self.SQL_CHECK_ACCOUNT, (account.username,))
         result = self.cursor.fetchall()
+        print(result != [])
         return result != []
